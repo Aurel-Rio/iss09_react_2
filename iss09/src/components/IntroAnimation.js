@@ -14,7 +14,6 @@ const initialRotateAnimation = keyframes`
   }
 `;
 
-
 const lineAnimationTop = keyframes`
   0% {
     transform: translateX(-100%);
@@ -59,7 +58,6 @@ const Logo = styled.img`
   image-rendering: auto;
 `;
 
-
 const Line = styled.div`
   position: absolute;
   width: 100%;
@@ -92,13 +90,21 @@ class IntroAnimation extends Component {
     img.src = logo;
   }
 
+  handleAnimationEnd = () => {
+    if (this.props.onAnimationComplete) {
+      this.props.onAnimationComplete();
+    }
+  };
+
   render() {
     const { isImageLoaded } = this.state;
 
     return (
       <AnimationContainer>
         <LogoContainer>
-          {isImageLoaded && <Logo src={logo} alt="iss09" />}
+          {isImageLoaded && (
+            <Logo src={logo} alt="iss09" onLoad={this.handleAnimationEnd} />
+          )}
         </LogoContainer>
         <TopLine onAnimationEnd={(e) => e.stopPropagation()} />
         <BottomLine onAnimationEnd={(e) => e.stopPropagation()} />
