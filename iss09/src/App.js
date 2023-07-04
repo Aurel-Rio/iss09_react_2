@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import IntroAnimation from './components/IntroAnimation';
 import Accueil from './components/Accueil';
@@ -11,21 +11,14 @@ import Footer from './components/Footer';
 function App() {
   const [showIntro, setShowIntro] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log("Animation d'introduction terminée !");
-      setShowIntro(false);
-    }, 3000); // Durée de l'animation d'introduction en millisecondes (3000 ms = 3 secondes)
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  console.log("showIntro :", showIntro);
+  const handleAnimationComplete = () => {
+    setShowIntro(false);
+  };
 
   return (
     <Router>
       {showIntro ? (
-        <IntroAnimation onAnimationComplete={() => setShowIntro(false)} />
+        <IntroAnimation onAnimationComplete={handleAnimationComplete} />
       ) : (
         <>
           <Header />
@@ -41,6 +34,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;
