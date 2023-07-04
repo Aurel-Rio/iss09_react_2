@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import logo from '../assets/logo.png';
 
 const Container = styled.div`
   height: 55px;
@@ -17,7 +18,7 @@ const Logo = styled.img`
 const Header = () => {
   return (
     <Container>
-      <Logo src="logo.png" alt="Logo" />
+      <Logo src={logo} alt="Logo" />
     </Container>
   );
 };

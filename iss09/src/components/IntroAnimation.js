@@ -85,12 +85,17 @@ class IntroAnimation extends Component {
   componentDidMount() {
     const img = new Image();
     img.onload = () => {
-      this.setState({ isImageLoaded: true });
+      console.log("Image chargée !");
+      this.setState({ isImageLoaded: true }, () => {
+        // Déclencher l'animation ici après que l'image soit chargée
+        this.handleAnimationEnd();
+      });
     };
     img.src = logo;
   }
 
   handleAnimationEnd = () => {
+    console.log("Animation terminée !");
     if (this.props.onAnimationComplete) {
       this.props.onAnimationComplete();
     }
@@ -99,11 +104,13 @@ class IntroAnimation extends Component {
   render() {
     const { isImageLoaded } = this.state;
 
+    console.log("isImageLoaded :", isImageLoaded);
+
     return (
       <AnimationContainer>
         <LogoContainer>
           {isImageLoaded && (
-            <Logo src={logo} alt="iss09" onLoad={this.handleAnimationEnd} />
+            <Logo src={logo} alt="iss09" />
           )}
         </LogoContainer>
         <TopLine onAnimationEnd={(e) => e.stopPropagation()} />
@@ -112,5 +119,6 @@ class IntroAnimation extends Component {
     );
   }
 }
+
 
 export default IntroAnimation;
